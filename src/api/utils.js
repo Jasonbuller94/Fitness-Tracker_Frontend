@@ -1,1 +1,1 @@
-export const BASE_URL = "https://fitnesstracker.com/api/2301-ftb-mt-web-pt";
+export const BASE_URL = "http://fitnesstrac-kr.herokuapp.com/api";
