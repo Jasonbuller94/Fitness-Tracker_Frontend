@@ -1,73 +1,47 @@
-import { useState } from "react";
-import { BASE_URL } from "../api/utils";
+// import { useState } from "react";
+// import { BASE_URL } from "../api/utils";
+// import { toast } from "react-hot-toast";
+// import Routines from "./routines";
 import { useOutletContext } from "react-router-dom";
-import { toast } from "react-hot-toast";
+import AddRoutine from "./add_routine";
 
-export default function AddRoutine() {
-  const { setRoutines, token } = useOutletContext();
-  const [name, setName] = useState("");
-  const [goal, setGoal] = useState("");
-  const [isPublic, setIsPublic] = useState(false);
-
-  async function handleSubmit(e) {
-    const localToken = localStorage.getItem("token");
-
-    e.preventDefault();
-    const response = await fetch(`${BASE_URL}/routines`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localToken}`,
-      },
-      body: JSON.stringify({
-        name,
-        goal,
-        isPublic,
-      }),
-    });
-    const result = await response.json();
-    // console.log(result);
-    if (!result.id) {
-      toast.error("cannot add routine!");
-    } else {
-      toast.success("Routine has been added!");
-      setRoutines([result]);
-      setName("");
-      setGoal("");
-      setIsPublic(false);
-    }
-  }
+export default function My_Routines() {
+  const {
+    setRoutines,
+    myRoutines,
+    user,
+    routines,
+    token,
+    setToken,
+    setRoutine,
+  } = useOutletContext();
+  // const [isPublic, setIsPublic] = useState(false);
 
   return (
-    <div>
-      {token && (
-        <>
-          <h2>Create Routine</h2>
-          <form className="form" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              placeholder="Routine name"
-            ></input>
-
-            <input
-              onChange={(e) => setGoal(e.target.value)}
-              value={goal}
-              placeholder="Routine Goal"
-            ></input>
-            <span>
-              <input
-                onChange={() => setIsPublic(!isPublic)}
-                type="checkbox"
-                checked={isPublic}
-              />
-              Public?
-            </span>
-            <button>Add Routine!</button>
-          </form>
-        </>
-      )}
+    <div className="body">
+      <main>
+        <AddRoutine routine={setRoutines} />
+        {/* <h1 className="heading">Welcome {user.username}</h1> */}
+        <ul className="act-list">
+          {myRoutines.map((routine) => {
+            if (routine.creatorId === user.id) {
+              return (
+                <li key={routine.id}>
+                  <span className="activity-name">{routine.name}</span>
+                  <br />
+                  <strong>goal:</strong> {routine.goal}
+                  <br />
+                  {routine.isPublic ? <>Public</> : <>Private</>}
+                  <br />
+                  <strong>creator:</strong> {routine.creatorName}
+                </li>
+              );
+            }
+            return null;
+          })}
+        </ul>
+      </main>
+      <aside id="create-form"></aside>
     </div>
   );
 }

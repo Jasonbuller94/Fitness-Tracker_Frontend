@@ -9,6 +9,7 @@ export default function Root() {
   const [user, setUser] = useState({});
   const [activities, setActivities] = useState([]);
   const [routines, setRoutines] = useState([]);
+  const [myRoutines, setMyRoutines] = useState([]);
 
   useEffect(() => {
     async function fetchUser() {
@@ -47,7 +48,28 @@ export default function Root() {
       setRoutines(routines);
     }
     getRoutines();
-  }, [token, routines]);
+  }, [token]);
+
+  useEffect(() => {
+    async function getMyRoutines(user) {
+      const localToken = localStorage.getItem("token");
+      if (localToken) {
+        setToken(localToken);
+        const response = await fetch(
+          `${BASE_URL}/users/${user.username}/routines`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localToken}`,
+            },
+          }
+        );
+        const routines = await response.json();
+        setMyRoutines(routines);
+      }
+    }
+    getMyRoutines(user);
+  }, [token, myRoutines]);
 
   return (
     <div>
@@ -59,6 +81,7 @@ export default function Root() {
           token,
           activities,
           routines,
+          myRoutines,
           setUser,
           setToken,
           setActivities,
