@@ -10,6 +10,8 @@ import My_Routines from "./components/my_routines";
 import Activities from "./components/activities";
 import Login from "./components/login";
 import Register from "./components/register";
+import AddRoutine from "./components/my_routines";
+// import Activity from "./components/activity";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +29,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/my_routines",
-        element: <My_Routines />,
+        element: <AddRoutine />,
       },
       {
         path: "/activities",
