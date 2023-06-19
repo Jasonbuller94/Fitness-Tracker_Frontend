@@ -27,11 +27,15 @@ export default function My_Routines() {
             if (routine.creatorId === user.id) {
               return (
                 <li key={routine.id}>
-                  <span className="activity-name">{routine.name}</span>
+                  <u>
+                    <span className="activity-name">{routine.name}</span>
+                  </u>
                   <br />
                   <strong>goal:</strong> {routine.goal}
                   <br />
-                  {routine.isPublic ? <>Public</> : <>Private</>}
+                  <strong>
+                    {routine.isPublic ? <>Public</> : <>Private</>}
+                  </strong>
                   <br />
                   <strong>creator:</strong> {routine.creatorName}
                 </li>
