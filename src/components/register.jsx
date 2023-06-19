@@ -7,7 +7,6 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmation, setConfirmation] = useState("");
   const [error, setError] = useState("");
-
   const { setToken } = useOutletContext();
 
   const navigate = useNavigate();
