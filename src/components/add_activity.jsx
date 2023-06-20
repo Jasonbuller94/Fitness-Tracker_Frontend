@@ -36,8 +36,6 @@ export default function AddActivity() {
     if (!result.id) {
       toast.error("Cannot add activity!");
     }
-    // console.log(result);
-    // setActivities((prev) => [...prev, result]);
     getActivities();
     setName("");
     setDescription("");

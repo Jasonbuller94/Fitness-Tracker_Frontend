@@ -14,7 +14,6 @@ export default function Root() {
   useEffect(() => {
     async function fetchUser() {
       const localToken = localStorage.getItem("token");
-      console.log(localToken);
       if (localToken) {
         setToken(localToken);
         const response = await fetch(`${BASE_URL}/users/me`, {
@@ -48,7 +47,7 @@ export default function Root() {
       setRoutines(routines);
     }
     getRoutines();
-  }, [token]);
+  }, [routines]);
 
   useEffect(() => {
     async function getMyRoutines(user) {

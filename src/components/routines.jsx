@@ -1,8 +1,11 @@
-import { useState } from "react";
-import { Link, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 export default function Routines() {
   const { user, token, routines, setRoutines } = useOutletContext();
+
+  if (routines === undefined) {
+    return <div></div>;
+  }
 
   return (
     <>
@@ -14,12 +17,13 @@ export default function Routines() {
               <div className="post" key={routine.id}>
                 <h2>{routine.name}</h2>
                 <p className="description">Goal: {routine.goal}</p>
-                <div>
-                  created by:{" "}
-                  <Link to={`/activities/${routine.creatorId}`}>
-                    {routine.creatorName}
-                  </Link>
-                </div>
+                <strong>
+                  <u>
+                    <i>
+                      <div>Created by: {routine.creatorName}</div>
+                    </i>
+                  </u>
+                </strong>
                 {routine.activities.length > 0 ? (
                   <>
                     <h3>Activities:</h3>

@@ -1,3 +1,18 @@
 a {
   margin: 1rem;
 }
+
+.post-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+button {
+  max-height: 18px;
+}
+
+span.user {
+  display: inline-block;
+  border: 2px solid black;
+}

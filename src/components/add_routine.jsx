@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BASE_URL } from "../api/utils";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 export default function AddRoutine() {
@@ -26,7 +26,7 @@ export default function AddRoutine() {
       }),
     });
     const result = await response.json();
-    // console.log(result);
+
     if (!result.id) {
       toast.error("Cannot add this routine!");
     } else {
